@@ -1,0 +1,206 @@
+catalog-service  | 2026/09/18 06:35:35 dial tcp 172.17.0.1:5432: connect: connection refused
+notification-service  | /usr/local/bundle/gems/pg-1.6.3-x86_64-linux/lib/pg/connection.rb:751:in `polling_loop': connection to server at "172.17.0.1", port 5432 failed: Connection refused (PG::ConnectionBad)
+notification-service  | 	Is the server running on that host and accepting TCP/IP connections?
+notification-service  | 
+notification-service  | 	from /usr/local/bundle/gems/pg-1.6.3-x86_64-linux/lib/pg/connection.rb:795:in `async_connect_or_reset'
+notification-service  | 	from /usr/local/bundle/gems/pg-1.6.3-x86_64-linux/lib/pg/connection.rb:951:in `connect_to_hosts'
+notification-service  | 	from /usr/local/bundle/gems/pg-1.6.3-x86_64-linux/lib/pg/connection.rb:871:in `new'
+notification-service  | 	from /usr/local/bundle/gems/pg-1.6.3-x86_64-linux/lib/pg.rb:88:in `connect'
+notification-service  | 	from app.rb:21:in `db'
+notification-service  | 	from app.rb:24:in `<main>'
+payment-service       | Unhandled exception. Npgsql.NpgsqlException (0x80004005): Failed to connect to 172.17.0.1:5432
+payment-service       |  ---> System.Net.Sockets.SocketException (111): Connection refused
+payment-service       |    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+payment-service       |    at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+payment-service       |    at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.TaskTimeoutAndCancellation.ExecuteAsync(Func`2 getTaskFunc, NpgsqlTimeout timeout, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.Internal.NpgsqlConnector.ConnectAsync(NpgsqlTimeout timeout, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.Internal.NpgsqlConnector.ConnectAsync(NpgsqlTimeout timeout, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+payment-service       |    at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+payment-service       |    at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+payment-service       |    at Npgsql.NpgsqlDataSource.OpenConnectionAsync(CancellationToken cancellationToken)
+payment-service       |    at Npgsql.NpgsqlDataSource.OpenConnectionAsync(CancellationToken cancellationToken)
+payment-service       |    at Program.<Main>$(String[] args) in /src/Program.cs:line 25
+payment-service       |    at Program.<Main>(String[] args)
+order-service         | Traceback (most recent call last):
+order-service         |   File "/usr/local/bin/uvicorn", line 8, in <module>
+order-service         |     sys.exit(main())
+order-service         |              ^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/click/core.py", line 1631, in __call__
+order-service         |     return self.main(*args, **kwargs)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/click/core.py", line 1552, in main
+order-service         |     rv = self.invoke(ctx)
+order-service         |          ^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/click/core.py", line 1415, in invoke
+order-service         |     return ctx.invoke(self.callback, **ctx.params)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/click/core.py", line 910, in invoke
+order-service         |     return callback(*args, **kwargs)
+auth-service          | 
+auth-service          |   .   ____          _            __ _ _
+auth-service          |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+auth-service          | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+auth-service          |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+auth-service          |   '  |____| .__|_| |_|_| |_\__, | / / / /
+auth-service          |  =========|_|==============|___/=/_/_/_/
+auth-service          | 
+auth-service          |  :: Spring Boot ::                (v3.5.6)
+auth-service          | 
+auth-service          | 2026-09-18T06:35:38.460Z  INFO 1 --- [auth-service] [           main] com.devopsshack.auth.AuthApplication     : Starting AuthApplication v1.0.0 using Java 21.0.12 with PID 1 (/app/app.jar started by root in /app)
+auth-service          | 2026-09-18T06:35:38.469Z  INFO 1 --- [auth-service] [           main] com.devopsshack.auth.AuthApplication     : No active profile set, falling back to 1 default profile: "default"
+auth-service          | 2026-09-18T06:35:39.890Z  INFO 1 --- [auth-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+auth-service          | 2026-09-18T06:35:39.906Z  INFO 1 --- [auth-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+auth-service          | 2026-09-18T06:35:39.906Z  INFO 1 --- [auth-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+auth-service          | 2026-09-18T06:35:39.931Z  INFO 1 --- [auth-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+auth-service          | 2026-09-18T06:35:39.932Z  INFO 1 --- [auth-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1355 ms
+auth-service          | 2026-09-18T06:35:40.499Z  INFO 1 --- [auth-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+auth-service          | 2026-09-18T06:35:40.530Z  INFO 1 --- [auth-service] [           main] com.devopsshack.auth.AuthApplication     : Started AuthApplication in 2.7 seconds (process running for 4.692)
+inventory-service     | 
+auth-service          | 2026-09-18T06:35:40.538Z  INFO 1 --- [auth-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+auth-service          | 2026-09-18T06:35:41.608Z  INFO 1 --- [auth-service] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+auth-service          | 
+auth-service          | Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+auth-service          | 2026-09-18T06:35:41.621Z ERROR 1 --- [auth-service] [           main] o.s.boot.SpringApplication               : Application run failed
+auth-service          | 
+auth-service          | org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+auth-service          | 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:388) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:444) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	at com.devopsshack.auth.AuthApplication.lambda$init$0(AuthApplication.java:24) ~[!/:1.0.0]
+auth-service          | 	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82) ~[spring-core-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86) ~[spring-core-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787) ~[spring-boot-3.5.6.jar!/:3.5.6]
+inventory-service     | > inventory-service@1.0.0 start
+auth-service          | 	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772) ~[spring-boot-3.5.6.jar!/:3.5.6]
+inventory-service     | > node src/index.js
+auth-service          | 	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+inventory-service     | 
+auth-service          | 	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+inventory-service     | Error: connect ECONNREFUSED 172.17.0.1:5432
+auth-service          | 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+auth-service          | 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+auth-service          | 	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+auth-service          | 	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+auth-service          | 	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+auth-service          | 	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+auth-service          | 	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.6.jar!/:3.5.6]
+auth-service          | 	at com.devopsshack.auth.AuthApplication.main(AuthApplication.java:13) ~[!/:1.0.0]
+auth-service          | 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+auth-service          | 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+auth-service          | 	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:102) ~[app.jar:1.0.0]
+auth-service          | 	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[app.jar:1.0.0]
+auth-service          | 	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[app.jar:1.0.0]
+auth-service          | Caused by: org.postgresql.util.PSQLException: Connection to host.docker.internal:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+auth-service          | 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:373) ~[postgresql-42.7.7.jar!/:42.7.7]
+analytics-service     | [Fri Sep 18 06:35:35 2026] PHP 8.3.33 Development Server (http://0.0.0.0:8087) started
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/main.py", line 413, in main
+order-service         |     run(
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/main.py", line 580, in run
+order-service         |     server.run()
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 67, in run
+order-service         |     return asyncio.run(self.serve(sockets=sockets))
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+order-service         |     return runner.run(main)
+order-service         |            ^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+order-service         |     return self._loop.run_until_complete(task)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 71, in serve
+order-service         |     await self._serve(sockets)
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 78, in _serve
+order-service         |     config.load()
+analytics-service     | [Fri Sep 18 06:35:46 2026] 172.18.0.1:42844 Accepted
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/config.py", line 436, in load
+analytics-service     | [Fri Sep 18 06:35:46 2026] 172.18.0.1:42844 Closing
+order-service         |     self.loaded_app = import_from_string(self.app)
+order-service         |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+order-service         |     module = importlib.import_module(module_str)
+order-service         |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+order-service         |     return _bootstrap._gcd_import(name[level:], package, level)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+order-service         |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+order-service         |   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+order-service         |   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+order-service         |   File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+order-service         |   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+order-service         |   File "/app/app/main.py", line 46, in <module>
+order-service         |     migrate()
+order-service         |   File "/app/app/main.py", line 32, in migrate
+order-service         |     with conn() as db:
+order-service         |          ^^^^^^
+order-service         |   File "/app/app/main.py", line 29, in conn
+order-service         |     return psycopg2.connect(DB_DSN, cursor_factory=RealDictCursor)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         |   File "/usr/local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+order-service         |     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+order-service         |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+order-service         | psycopg2.OperationalError: connection to server at "host.docker.internal" (172.17.0.1), port 5432 failed: Connection refused
+order-service         | 	Is the server running on that host and accepting TCP/IP connections?
+order-service         | 
+auth-service          | 	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:277) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar!/:na]
+auth-service          | 	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-6.2.11.jar!/:6.2.11]
+auth-service          | 	... 28 common frames omitted
+auth-service          | Caused by: java.net.ConnectException: Connection refused
+auth-service          | 	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+auth-service          | 	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:694) ~[na:na]
+auth-service          | 	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542) ~[na:na]
+auth-service          | 	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[na:na]
+auth-service          | 	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+auth-service          | 	at java.base/java.net.Socket.connect(Socket.java:751) ~[na:na]
+auth-service          | 	at org.postgresql.core.PGStream.createSocket(PGStream.java:261) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.core.PGStream.<init>(PGStream.java:122) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:146) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.7.jar!/:42.7.7]
+auth-service          | 	... 42 common frames omitted
+auth-service          | 
+auth-service          | 2026-09-18T06:35:41.630Z  INFO 1 --- [auth-service] [           main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+auth-service          | 2026-09-18T06:35:41.636Z  INFO 1 --- [auth-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+inventory-service     |     at /app/node_modules/pg-pool/index.js:45:11
+inventory-service     |     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+inventory-service     |     at async migrate (file:///app/src/index.js:16:3) {
+inventory-service     |   errno: -111,
+inventory-service     |   code: 'ECONNREFUSED',
+inventory-service     |   syscall: 'connect',
+inventory-service     |   address: '172.17.0.1',
+inventory-service     |   port: 5432
+inventory-service     | }
+frontend              | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+frontend              | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+frontend              | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+frontend              | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+frontend              | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+frontend              | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+frontend              | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+frontend              | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+frontend              | /docker-entrypoint.sh: Configuration complete; ready for start up
+frontend              | 2026/09/18 06:35:37 [emerg] 1#1: host not found in upstream "catalog-service" in /etc/nginx/conf.d/default.conf:19
+frontend              | nginx: [emerg] host not found in upstream "catalog-service" in /etc/nginx/conf.d/default.conf:19
