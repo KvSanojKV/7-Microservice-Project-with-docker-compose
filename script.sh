@@ -22,8 +22,6 @@ echo ">>> Installing prerequisites..."
 sudo apt install -y \
     docker.io \
     docker-compose-v2 \
-    postgresql \
-    postgresql-contrib \
     openjdk-21-jdk \
     maven \
     golang-go \
@@ -113,16 +111,7 @@ else
 fi
 
 # ------------------------------------------
-# 7. Start PostgreSQL
 # ------------------------------------------
-echo
-echo ">>> Starting PostgreSQL..."
-
-if command -v systemctl >/dev/null 2>&1 && systemctl is-system-running >/dev/null 2>&1; then
-    sudo systemctl enable --now postgresql
-else
-    sudo service postgresql start
-fi
 
 # ------------------------------------------
 # 8. Verify installations
@@ -178,8 +167,6 @@ echo "--- PHP ---"
 php --version
 
 echo
-echo "--- PostgreSQL ---"
-psql --version
 
 echo
 echo "--- Git ---"

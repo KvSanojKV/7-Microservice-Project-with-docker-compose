@@ -1,5 +1,31 @@
 services:
 
+  # =========================
+  # PostgreSQL
+  # =========================
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - microservices-net
+
+
+  # =========================
+  # Auth Service
+  # =========================
   auth-service:
     build:
       context: ./services/auth-service
@@ -7,12 +33,17 @@ services:
     ports:
       - "8081:8081"
     environment:
-      AUTH_DB_URL: "jdbc:postgresql://host.docker.internal:5432/auth_db"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      AUTH_DB_URL: "jdbc:postgresql://postgres:5432/auth_db"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Catalog Service
+  # =========================
   catalog-service:
     build:
       context: ./services/catalog-service
@@ -20,12 +51,17 @@ services:
     ports:
       - "8082:8082"
     environment:
-      CATALOG_DB_DSN: "postgres://microapp:microapp123@host.docker.internal:5432/catalog_db?sslmode=disable"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      CATALOG_DB_DSN: "postgres://microapp:microapp123@postgres:5432/catalog_db?sslmode=disable"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Inventory Service
+  # =========================
   inventory-service:
     build:
       context: ./services/inventory-service
@@ -33,12 +69,17 @@ services:
     ports:
       - "8083:8083"
     environment:
-      INVENTORY_DB_URL: "postgres://microapp:microapp123@host.docker.internal:5432/inventory_db"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      INVENTORY_DB_URL: "postgres://microapp:microapp123@postgres:5432/inventory_db"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Order Service
+  # =========================
   order-service:
     build:
       context: ./services/order-service
@@ -46,12 +87,17 @@ services:
     ports:
       - "8084:8084"
     environment:
-      ORDER_DB_DSN: "dbname=order_db user=microapp password=microapp123 host=host.docker.internal port=5432"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      ORDER_DB_DSN: "dbname=order_db user=microapp password=microapp123 host=postgres port=5432"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Payment Service
+  # =========================
   payment-service:
     build:
       context: ./services/payment-service
@@ -59,12 +105,17 @@ services:
     ports:
       - "8085:8085"
     environment:
-      PAYMENT_DB_URL: "Host=host.docker.internal;Port=5432;Database=payment_db;Username=microapp;Password=microapp123"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      PAYMENT_DB_URL: "Host=postgres;Port=5432;Database=payment_db;Username=microapp;Password=microapp123"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Notification Service
+  # =========================
   notification-service:
     build:
       context: ./services/notification-service
@@ -72,12 +123,17 @@ services:
     ports:
       - "8086:8086"
     environment:
-      NOTIFICATION_DB_URL: "postgres://microapp:microapp123@host.docker.internal:5432/notification_db"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      NOTIFICATION_DB_URL: "postgres://microapp:microapp123@postgres:5432/notification_db"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Analytics Service
+  # =========================
   analytics-service:
     build:
       context: ./services/analytics-service
@@ -85,12 +141,17 @@ services:
     ports:
       - "8087:8087"
     environment:
-      ANALYTICS_DB_DSN: "pgsql:host=host.docker.internal;port=5432;dbname=analytics_db"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      ANALYTICS_DB_DSN: "pgsql:host=postgres;port=5432;dbname=analytics_db"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - microservices-net
 
+
+  # =========================
+  # Frontend
+  # =========================
   frontend:
     build:
       context: ./frontend
@@ -109,6 +170,16 @@ services:
       - microservices-net
 
 
+# =========================
+# Network
+# =========================
 networks:
   microservices-net:
     driver: bridge
+
+
+# =========================
+# Volumes
+# =========================
+volumes:
+  postgres_data:
